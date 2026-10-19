@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "projectshop"
+version = "0.1.0"
+description = ""
+authors = ["«Artyom» <«lzspector@mail.ru»>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.14"
+django = "^6.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
