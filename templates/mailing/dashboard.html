@@ -1,0 +1,9 @@
+{% load cache %}
+
+<div class="stats">
+    {% cache 300 dashboard_stats_user request.user.id %}
+        <p>Успешных отправок: {{ stats.success_count|default:0 }}</p>
+        <p>Неудачных отправок: {{ stats.fail_count|default:0 }}</p>
+        <p>Всего попыток: {{ stats.success_count|add:stats.fail_count|default:0 }}</p>
+    {% endcache %}
+</div>
