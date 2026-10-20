@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.14"
 django = "^6.1.2"
+psycopg = "^3.3.6"
 
 
 [build-system]

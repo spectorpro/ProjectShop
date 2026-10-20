@@ -1,0 +1,7 @@
+<a href="{% url 'mailing_start' object.id %}" class="btn btn-primary">Запустить рассылку</a>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+{% endif %}
