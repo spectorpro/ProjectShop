@@ -139,7 +139,6 @@ CACHES = {
     }
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'no-reply@projectshop.com'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = '/'
