@@ -1,3 +1,5 @@
+from .mixins import OwnerRequiredMixin
+from .forms import MailingForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
@@ -192,7 +194,7 @@ class MailingDetailView(LoginRequiredMixin, DetailView):
 
 class MailingCreateView(LoginRequiredMixin, CreateView):
     model = Mailing
-    fields = ['start_time', 'end_time', 'message', 'recipients']
+    form_class = MailingForm
     template_name = 'mailing/mailing_form.html'
 
     def form_valid(self, form):
@@ -203,16 +205,16 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('mailing_detail', kwargs={'pk': self.object.pk})
 
 
-class MailingUpdateView(LoginRequiredMixin, UpdateView):
+class MailingUpdateView(OwnerRequiredMixin, UpdateView):
     model = Mailing
-    fields = ['start_time', 'end_time', 'message', 'recipients']
+    form_class = MailingForm
     template_name = 'mailing/mailing_form.html'
 
     def get_success_url(self):
         return reverse_lazy('mailing_detail', kwargs={'pk': self.object.pk})
 
 
-class MailingDeleteView(LoginRequiredMixin, DeleteView):
+class MailingDeleteView(OwnerRequiredMixin, DeleteView):
     model = Mailing
     template_name = 'mailing/mailing_confirm_delete.html'
     success_url = reverse_lazy('mailing_list')
