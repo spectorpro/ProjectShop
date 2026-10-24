@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{% if object %}Редактировать рассылку{% else %}Создать рассылку{% endif %}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="mb-3">
+      <label class="form-label">Тема</label>
+      {{ form.subject }}
+      {{ form.subject.errors }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Текст письма</label>
+      {{ form.body }}
+      {{ form.body.errors }}
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Старт (datetime)</label>
+        {{ form.start_time }}
+        {{ form.start_time.errors }}
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Окончание (datetime)</label>
+        {{ form.end_time }}
+        {{ form.end_time.errors }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Получатели</label>
+      {{ form.recipients }}
+      {{ form.recipients.errors }}
+    </div>
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="{% url 'mailing:list' %}" class="btn btn-secondary">Отмена</a>
+  </form>
+{% endblock %}

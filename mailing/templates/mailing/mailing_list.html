@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Мои рассылки</h1>
+  {% if user.is_staff %}
+    <p class="text-muted">Режим менеджера: отображаются все рассылки.</p>
+  {% else %}
+    <p class="text-muted">Отображаются только ваши рассылки.</p>
+  {% endif %}
+
+  <a href="{% url 'mailing:create' %}" class="btn btn-primary">Создать рассылку</a>
+
+  <table class="table mt-3">
+    <thead>
+      <tr>
+        <th>Тема</th>
+        <th>Статус</th>
+        <th>Старт</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for mailing in mailings %}
+        <tr>
+          <td>{{ mailing.subject }}</td>
+          <td>{{ mailing.get_status_display }}</td>
+          <td>{{ mailing.start_time|date:"d.m.Y H:i" }}</td>
+          <td>
+            <a href="{% url 'mailing:detail' mailing.pk %}">Детали</a> |
+            <a href="{% url 'mailing:update' mailing.pk %}">Изменить</a> |
+            <a href="{% url 'mailing:delete' mailing.pk %}" class="text-danger">Удалить</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">У вас нет рассылок.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
