@@ -1,9 +1,10 @@
-{% load cache %}
-
-<div class="stats">
-    {% cache 300 dashboard_stats_user request.user.id %}
-        <p>Успешных отправок: {{ stats.success_count|default:0 }}</p>
-        <p>Неудачных отправок: {{ stats.fail_count|default:0 }}</p>
-        <p>Всего попыток: {{ stats.success_count|add:stats.fail_count|default:0 }}</p>
-    {% endcache %}
-</div>
+{% extends "base.html" %}
+{% block title %}Дашборд{% endblock %}
+{% block content %}
+<h1>Дашборд</h1>
+<p>Привет, {{ user.username }}!</p>
+<p>Здесь будет статистика рассылок.</p>
+<ul>
+  <li><a href="{% url 'mailing:list' %}">Список рассылок</a></li>
+</ul>
+{% endblock %}

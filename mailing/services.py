@@ -1,13 +1,15 @@
 from django.core.mail import send_mail
 from .models import SendAttempt
 
+
 def send_mailing(mailing_instance):
     """
     Отправляет рассылку и сохраняет попытки через bulk_create.
     Возвращает количество успешных и неуспешных попыток.
     """
     recipients = mailing_instance.recipients.all()
-    attempts_to_create =
+
+    attempts_to_create = []
 
     for recipient in recipients:
         success = False
@@ -34,7 +36,8 @@ def send_mailing(mailing_instance):
         attempts_to_create.append(attempt)
 
     # Массовое сохранение одним запросом
-    SendAttempt.objects.bulk_create(attempts_to_create, batch_size=100)
+    if attempts_to_create:  # защита от пустого списка
+        SendAttempt.objects.bulk_create(attempts_to_create, batch_size=100)
 
     mailing_instance.update_status()
-    return attempts_to_create
+    return len(attempts_to_create)
