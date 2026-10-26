@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Дашборд{% endblock %}
+{% block content %}
+<h1>Дашборд</h1>
+<p>Привет, {{ user.username }}!</p>
+<p>Здесь будет статистика рассылок.</p>
+<ul>
+  <li><a href="{% url 'mailing:list' %}">Список рассылок</a></li>
+</ul>
+{% endblock %}
