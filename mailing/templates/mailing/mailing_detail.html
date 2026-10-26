@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Детали рассылки «{{ object.subject }}»{% endblock %}
+
+{% block content %}
+  <h1>{{ object.subject }}</h1>
+
+  <p><strong>Статус:</strong> {{ object.get_status_display }}</p>
+  <p><strong>Текст письма:</strong></p>
+  <p>{{ object.body }}</p>
+
+  <p><strong>Период:</strong> {{ object.start_time|date:"d.m.Y H:i" }} — {{ object.end_time|date:"d.m.Y H:i" }}</p>
+  <p><strong>Получатели:</strong> {{ object.recipients }}</p>
+
+  <div class="mt-3">
+    <a href="{% url 'mailing:update' object.pk %}" class="btn btn-primary">Редактировать</a>
+    <a href="{% url 'mailing:delete' object.pk %}" class="btn btn-danger">Удалить</a>
+    <a href="{% url 'mailing:list' %}" class="btn btn-secondary">Назад к списку</a>
+  </div>
+{% endblock %}

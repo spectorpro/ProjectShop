@@ -7,6 +7,7 @@ from .mixins import OwnerRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+
 class MailingListView(LoginRequiredMixin, ListView):
     model = Mailing
     template_name = 'mailing/mailing_list.html'
@@ -40,12 +41,10 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-# ✅ Используем OwnerRequiredMixin вместо только get_queryset
 class MailingUpdateView(OwnerRequiredMixin, UpdateView):
     model = Mailing
     form_class = MailingForm
     template_name = 'mailing/mailing_form.html'
-    # get_queryset тут больше не нужен, миксин сам проверит владельца
 
 
 class MailingDeleteView(OwnerRequiredMixin, DeleteView):
@@ -53,6 +52,7 @@ class MailingDeleteView(OwnerRequiredMixin, DeleteView):
     template_name = 'mailing/mailing_confirm_delete.html'
     success_url = reverse_lazy('mailing:list')
 
+
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'mailing/dashboard.html')
